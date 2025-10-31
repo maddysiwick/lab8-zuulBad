@@ -34,4 +34,4 @@ it into commands when possible. Command words defines the valid commands and che
 are valid. Commands are the instructions that allow you to progress in the game and Rooms are 
 the places you can go.
 
-3.
+9. the keySet() method returns a set of all of the keys of a hashmap

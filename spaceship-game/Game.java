@@ -58,13 +58,17 @@ public class Game
         in the mess hall. It is more of a closet with a few cabinets of freeze-dried
         food and a water jug.
         """);
-        
+        //8
         // initialise room exits
-        hull.setExits(null, null, control, null);
-        control.setExits(hull, sleeping, mess, storage);
-        storage.setExits(engine, control, null, null);
-        sleeping.setExits(null, null, null, control);
-        mess.setExits(control,null,null,null);
+        hull.setExit("south",control);
+        control.setExit("north",hull);
+        control.setExit("east",sleeping);
+        control.setExit("south",mess);
+        control.setExit("west",storage);
+        storage.setExit("north",engine);
+        storage.setExit("east",control);
+        sleeping.setExit("west", control);
+        mess.setExit("north",control);
 
         // start game outside
         currentRoom = control;
@@ -99,21 +103,7 @@ public class Game
         System.out.println("Argo is a new, incredibly boring space adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
-        }
-        System.out.println();
+        printLocationInfo();
     }
 
     /**
@@ -172,42 +162,17 @@ public class Game
         }
 
         String direction = command.getSecondWord();
-
+        System.out.println(direction);
         // Try to leave current room.
-        Room nextRoom = null;
-        if(direction.equals("north")) {
-            nextRoom = currentRoom.northExit;
-        }
-        if(direction.equals("east")) {
-            nextRoom = currentRoom.eastExit;
-        }
-        if(direction.equals("south")) {
-            nextRoom = currentRoom.southExit;
-        }
-        if(direction.equals("west")) {
-            nextRoom = currentRoom.westExit;
-        }
+        Room nextRoom;
+        nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
             currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
-            System.out.print("Exits: ");
-            if(currentRoom.northExit != null) {
-                System.out.print("north ");
-            }
-            if(currentRoom.eastExit != null) {
-                System.out.print("east ");
-            }
-            if(currentRoom.southExit != null) {
-                System.out.print("south ");
-            }
-            if(currentRoom.westExit != null) {
-                System.out.print("west ");
-            }
-            System.out.println();
+            printLocationInfo();
         }
     }
 
@@ -232,5 +197,10 @@ public class Game
             return true;
         }
         return false;
+    }
+    //5
+    private void printLocationInfo(){
+        System.out.printf(currentRoom.getLongDescription());
+        System.out.println();
     }
 }
