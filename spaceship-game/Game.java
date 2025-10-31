@@ -130,7 +130,16 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
-
+        //14
+        else if (commandWord.equals("look")){
+            printLocationInfo();
+        }
+        else if(commandWord.equals("eat")){
+            System.out.println("""
+            You've already eaten too much freeze-dried paste today. You aren't 
+            hungry anymore.
+            """);
+        }
         return wantToQuit;
     }
 
@@ -146,7 +155,7 @@ public class Game
         System.out.println("You are alone. You wander around at the ship.");
         System.out.println();
         System.out.println("Your command words are:");
-        System.out.println("   go quit help");
+        parser.getCommandWords().showAll(); //16
     }
 
     /** 

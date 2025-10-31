@@ -35,3 +35,6 @@ are valid. Commands are the instructions that allow you to progress in the game 
 the places you can go.
 
 9. the keySet() method returns a set of all of the keys of a hashmap
+13. the currentRoom field of the Game object changes.
+17. no, you would only need to change the commandWords class because everything after
+references that
